@@ -1,0 +1,128 @@
+{% extends "base.html"%} {% block title %}Home Page{% endblock%} {% block
+content %}
+<html>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .login-box {
+      width: 300px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 5px #aaa;
+    }
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .btn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .btn1 {
+      background-color: #008000;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div class="login-box">
+      <h2>Register</h2>
+      <form id="login-form">
+        <input
+          type="text"
+          class="input-field"
+          id="name"
+          placeholder="Name"
+          required
+        />
+        <input
+          type="email"
+          class="input-field"
+          id="email"
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          class="input-field"
+          id="password"
+          placeholder="Password"
+          required
+        />
+        <button type="button" class="btn" id="log-btn">Log in</button>
+        <button type="button" class="btn1" id="reg-btn">Register</button>
+      </form>
+    </div>
+
+    <script>
+      document.getElementById("log-btn").addEventListener("click", function () {
+        window.location.href = "/";
+      });
+      document
+        .getElementById("reg-btn")
+        .addEventListener("click", function (event) {
+          var name = document.getElementById("name").value;
+          var email = document.getElementById("email").value;
+          var password = document.getElementById("password").value;
+
+          var usernameValue = name.trim(); // Removed .value here
+          var emailValue = email.trim(); // Removed .value here
+          var passwordValue = password.trim(); // Removed .value here
+
+          if (
+            usernameValue === "" ||
+            emailValue === "" ||
+            passwordValue === ""
+          ) {
+            event.preventDefault();
+            alert("Please fill out all fields.");
+          } else {
+            // Prepare data to be sent to the backend
+            var data = {
+              Name: usernameValue, // Use usernameValue here
+              Email: emailValue, // Use emailValue here
+              Password: passwordValue,
+            };
+
+            // Make a POST request to the backend
+            fetch("/add_user", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
+              .then((response) => response.json())
+              .then((result) => {
+                if (result.success) {
+                  alert("Credentials already exist or");
+                  window.location.href = "/";
+                  // Redirect to a new page or perform further actions
+                } else {
+                  alert("Registered");
+                  window.location.href = "/";
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          }
+        });
+    </script>
+  </body>
+</html>
+{% endblock %}

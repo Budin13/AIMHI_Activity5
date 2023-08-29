@@ -1,0 +1,219 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "description": "Eugene Verano",
+      "version": "5.0.0",
+      "title": "Code With Eugene Flask API",
+      "license": {
+        "name": "github",
+        "url": "https://github.com/Budin13"
+      }
+    },
+    "tags": [
+      {
+        "name": "Products API",
+        "description": "Test API"
+      }
+    ],
+     "servers": [
+          {
+          "url": "/"
+          }
+      ],
+      "components": {
+        "schemas": {
+            "login": {
+                "type": "object",
+                "properties": {
+                    "Email": {
+                    "type": "string"
+                    },
+                    "Password": {
+                    "type": "string"
+                    }
+                }
+            },
+            "add_user": {
+              "type": "object",
+              "properties": {
+                  "Name": {
+                  "type": "string"
+                  },
+                  "Email": {
+                  "type": "string"
+                  },
+                  "Password": {
+                  "type": "string"
+                  }
+              } 
+          },
+          "delete_user": {
+            "type": "object",
+            "properties": {
+                "Name": {
+                "type": "string"
+                }
+            }
+        }
+        }
+    },
+    "paths": {
+        "/home": {
+            "get": {
+                "tags": [
+                "FLASH LOGIN and WELCOME"
+                ],
+                "summary": "WELCOME PAGE",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "NOT FOUND"
+            }
+            }
+            }
+        },
+      "/login": {
+          "put": {
+          "tags": [
+              "LOGIN USER"
+          ],
+          "summary": "User Log In",
+          "requestBody": {
+          "description": "Input User Credentials",
+          "required": true,
+          "content": {
+              "application/json": {
+              "schema": {
+                  "$ref": "#/components/schemas/login"
+                  }
+              }
+          }
+          },
+          "responses": {
+              "200": {
+                  "description": "OK"
+              },
+              "404": {
+                  "description": "NOT FOUND"
+          }
+          }
+          },
+          "get" :{
+              "tags": [
+                  "Flash Log in Page"
+              ],
+              "summary": "Log In Page",
+             
+              "responses": {
+              "200": {
+                  "description": "OK"
+              },
+              "404": {
+                  "description": "NOT FOUND"
+          }
+          }
+          }
+      },
+      "/add_user": {
+        "post": {
+        "tags": [
+            "ADDING USER"
+        ],
+        "summary": "Register User",
+        "requestBody": {
+        "description": "Input User Credentials (if Response Body is sucess=false, it means that Credentials is added to Data Base)",
+        "required": true,
+        "content": {
+            "application/json": {
+            "schema": {
+                "$ref": "#/components/schemas/add_user"
+                }
+            }
+        }
+        },
+        "responses": {
+            "200": {
+                "description": "OK"
+            },
+            "404": {
+                "description": "NOT FOUND"
+        }
+        }
+        },
+        "get" :{
+            "tags": [
+                "Flash Register Page"
+            ],
+            "summary": "Register Page",
+           
+            "responses": {
+            "200": {
+                "description": "OK"
+            },
+            "404": {
+                "description": "NOT FOUND"
+        }
+        }
+        }
+    },"/delete_user": {
+        "delete": {
+        "tags": [
+            "DELETING USER"
+        ],
+        "summary": "Delete User",
+        "requestBody": {
+        "description": "Input The Name of The User to Delete",
+        "required": true,
+        "content": {
+            "application/json": {
+            "schema": {
+                "$ref": "#/components/schemas/delete_user"
+                }
+            }
+        }
+        },
+        "responses": {
+            "200": {
+                "description": "OK"
+            },
+            "404": {
+                "description": "NOT FOUND"
+        }
+        }
+        },
+        "get" :{
+            "tags": [
+                "Flash Deleting User Page"
+            ],
+            "summary": "Delete Page",
+           
+            "responses": {
+            "200": {
+                "description": "OK"
+            },
+            "404": {
+                "description": "NOT FOUND"
+        }
+        }
+        }
+    },
+    "/logout": {
+        "get": {
+            "tags": [
+            "FLASH LOGIN"
+            ],
+            "summary": "when You Logout Your Account",
+            "responses": {
+                "200": {
+                    "description": "OK"
+                },
+                "404": {
+                    "description": "NOT FOUND"
+        }
+        }
+        }
+    }
+}
+}
